@@ -33,9 +33,10 @@ def add_measurement(name, temperature):
 
 # 4
 class List_sensors(ListAPIView):
+  # 4 get sensors
     queryset = Sensor.objects.all()
-    serializer_class = SensorDetailSerializer     # GET
-
+    serializer_class = SensorDetailSerializer     
+# 1 create 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
@@ -48,19 +49,6 @@ class find_sensor(RetrieveAPIView):
     queryset = Sensor.objects.all()
     serializer_class = SensorDetailSerializer
 
-    # 2 update
-    # def patch(self, request, *args, **kwargs):
-    #     # Получаем объект
-    #     instance = self.get_object()
-    #
-    #     # Создаем сериализатор с частичными данными
-    #     serializer = self.get_serializer(instance, data=request.data, partial=True)
-    #     serializer.is_valid(raise_exception=True)
-    #
-    #     # Сохраняем обновленный объект
-    #     self.perform_update(serializer)
-    #
-    #     return Response({'status': 'OK'})
 
     # 2 update
     def patch(self, request, *args, **kwargs):
@@ -72,6 +60,7 @@ class find_sensor(RetrieveAPIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+          
+# if need - delete notes
 # Sensor.objects.all().delete()
 # Measurement.objects.all().delete()
